@@ -3,7 +3,7 @@
 #include <stdlib.h>  /* NULL, strtod(), printf() */
 #include <string.h> /* strlen() */
 #include <errno.h> /* errno */
-#include <math.h> 
+#include <math.h> /* HUGE_VAL */
 #define EXPECT(c, ch)       do { assert(*c->json == (ch)); c->json++; } while(0)
 
 typedef struct {
@@ -51,7 +51,7 @@ static int lept_parse_null(lept_context* c, lept_value* v) {
 */
 
 static int lept_parse_literal(lept_context* c, lept_value* v, char* value, int type){
-    int index;
+    size_t index;
     EXPECT(c, value[0]);
     for(index = 1; index < strlen(value); index++){
         if(c->json[index-1] != value[index])
